@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 mashUpDict = {} 
-
+#TODO: är alla variabler namngedda korrekt?
 
 def findWikipediaURL(IDConvert, urlRework):
 
@@ -30,12 +30,48 @@ def GetWikipediaText(wiki_ID, urlRework):
 
     parsed = json.loads(data) # gör om json string till ett objekt
 
-    #print(parsed['query']['pages'][0]['extract'][0:1000]) #det ska inte ligga någon 0:1000 slice i slutversionen, men det gör det lättare att läsa output just nu.
-    mashUpDict['description'] = (parsed['query']['pages'][0]['extract'][0:1000])
+    #print(parsed['query']['pages'][0]['extract'][0:1000]) 
+    mashUpDict['description'] = (parsed['query']['pages'][0]['extract'][0:1000]) #det ska inte ligga någon 0:1000 slice i slutversionen, men det gör det lättare att läsa output just nu.
 
-    return(mashUpDict)
+    #return(mashUpDict)
 
-    #return(GetCoverArt(urlRework))
+    return(GetCoverArt(urlRework))
+
+def GetCoverArt(brainUrl):
+    gatheredAlbums = {}
+    
+    response = requests.get(brainUrl) #just nu bärs brainUrl genom hela grejen, det är inte en snygg lösning. Finns det någon bättre?
+    #coverUrl = "http://ia803208.us.archive.org/11/items/mbid-" + a146429a-cedc-3ab0-9e41-1aaf5f6cdc2d + "/index.json"
+    
+    data = response.text
+    parsed = json.loads(data)
+
+    for entry in parsed['release-groups']:
+        
+        coverDictionary = {}
+        coverTitle = entry['title']
+        coverID = entry['id']
+        coverUrl = "http://coverartarchive.org/release-group/" + coverID 
+        # coverartarchive.org/release-group/810068af-2b3c-3e9c-b2ab-68a3f3e3787d det här formatet vill vi ha
+        coverResponse = requests.get(coverUrl)
+
+        if coverResponse.status_code == 200:
+            coverdata = coverResponse.text 
+            coverParsed = json.loads(coverdata)
+
+            imageLink = coverParsed['images'][0]['image']
+
+            coverDictionary['title'] = coverTitle
+            coverDictionary['id'] = coverID
+            coverDictionary['image'] = imageLink
+            gatheredAlbums[coverTitle] = coverDictionary
+      
+    
+    mashUpDict['albums'] = gatheredAlbums
+    finalOutput = json.loads(json.dumps(mashUpDict, indent = 4))
+    return(finalOutput)
+    
+
 
 
 @app.route('/')
@@ -44,16 +80,13 @@ def hi():
 
 @app.route('/search/<MBID>', methods=['GET'])
 
-# --------------------------------------
-# TA INTE BORT STARTUP DEN FUNKAR BRA!!!
-# --------------------------------------
 def startUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas vidare till WikiData eller Wikipedia
 # MBID ATT TESTA MED (nirvana) - 5b11f4ce-a62d-471e-81fc-a69a8278c7da
     musicBrainzURL = "http://musicbrainz.org/ws/2/artist/" + MBID + "?&f%20mt=json&inc=url-rels+release-groups&fmt=json"
     urlRework = ((musicBrainzURL.replace('<', '').replace('>', '')))
     response = requests.get(urlRework) 
 
-    mashUpDict['MBID'] = ((musicBrainzURL.replace('<', '').replace('>', '')))
+    mashUpDict['MBID'] = (MBID)
     
     data = response.text 
     parsed = json.loads(data) 
@@ -66,6 +99,7 @@ def startUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas
             
         elif entry['type'] == 'wikipedia': #den här måste göras klart
             pass #TODO: hur funkar det om man ska hitta wikipedia? Hitta ett exempel MBID som leder direkt till Wikipedia för test.
+            # ifall ett MBID har wikipedia snarare än wikidata ska det skickas direkt till GetWikipediaText, skippar alltså ett steg.
             
 
 
