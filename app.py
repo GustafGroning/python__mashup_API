@@ -6,7 +6,7 @@ import json
 app = Flask(__name__)
 
 
-mashUpDict = {} 
+mashUpDict = {"MBID": "", "description": "", "albums": ""} 
 #TODO: är alla variabler namngedda korrekt?
 
 def findWikipediaURL(IDConvert, urlRework):
@@ -61,9 +61,11 @@ def GetCoverArt(brainUrl):
 
             imageLink = coverParsed['images'][0]['image']
 
-            coverDictionary['title'] = coverTitle
-            coverDictionary['id'] = coverID
+            
+            
             coverDictionary['image'] = imageLink
+            coverDictionary['id'] = coverID
+            coverDictionary['title'] = coverTitle
             gatheredAlbums[coverTitle] = coverDictionary
       
     
@@ -80,11 +82,16 @@ def hi():
 
 @app.route('/search/<MBID>', methods=['GET'])
 
-def startUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas vidare till WikiData eller Wikipedia
+def startUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas vidare till WikiData eller Wikipedia.
 # MBID ATT TESTA MED (nirvana) - 5b11f4ce-a62d-471e-81fc-a69a8278c7da
     musicBrainzURL = "http://musicbrainz.org/ws/2/artist/" + MBID + "?&f%20mt=json&inc=url-rels+release-groups&fmt=json"
     urlRework = ((musicBrainzURL.replace('<', '').replace('>', '')))
     response = requests.get(urlRework) 
+
+    if response.status_code != 200:
+        status = str(response.status_code)
+        return("invalid MBID, status code: " + status)
+
 
     mashUpDict['MBID'] = (MBID)
     
@@ -97,9 +104,11 @@ def startUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas
             IDConvert = entry['url']['resource']
             return(findWikipediaURL(IDConvert.split("/")[-1], urlRework)) #urlRework skickas med för att kunna hitta cover art senare.
             
-        elif entry['type'] == 'wikipedia': #den här måste göras klart
-            pass #TODO: hur funkar det om man ska hitta wikipedia? Hitta ett exempel MBID som leder direkt till Wikipedia för test.
-            # ifall ett MBID har wikipedia snarare än wikidata ska det skickas direkt till GetWikipediaText, skippar alltså ett steg.
+        elif entry['type'] == 'wikipedia':
+            pass
+        # Hittade inget ID som länkade direkt till Wikipedia, kunde därför inte testa detta case. 
+        # baserat på musicBrainz format bör lösningen dock vara;
+        # Wiki_ID = entry['title] - som sedan skickas direkt till GetWikipediaText.
             
 
 
