@@ -12,6 +12,22 @@ Searches are based on a MBID (identifier from MusicBrainz API), which is used to
 The output is in a JSON format.
 
 # Installation
+The system needs a current version of Python3 and the Flask module. Both json and requests (Python3 modules that are required for running the app) are included in any valid installation of Python3 and do not need to be installed independently.
+
+(guide for installing python3 and flask)
+
+
+The API can be accessed through the command line or any browser that can handle JSON.
+
+## browser
+1. enter "localhost:5000/search/<MBID>" (5000 is the automatic port used by Flask, MBID is the identifier you want to search for) 
+%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for Nirvana.
+
+
+## command line
+1. open terminal
+2. enter "curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E"
+curl is automatically installed on any mac systems but might need manual installation on windows.
 
 
 # Testing
