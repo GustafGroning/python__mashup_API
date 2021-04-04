@@ -20,13 +20,13 @@ The system needs a current version of Python3 and the Flask module. Both json an
 The API can be accessed through the command line or any browser that can handle JSON.
 
 ## browser
-1. enter "localhost:5000/search/<MBID>" (5000 is the automatic port used by Flask, MBID is the identifier you want to search for) 
-%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for Nirvana.
+1. enter "localhost:5000/search/MBID" (5000 is the automatic port used by Flask, MBID is the identifier you want to search for) 
+<br> %3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for Nirvana.
 
 
 ## command line
 1. open terminal
-2. enter "curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E"
+2. enter "curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E" <br>
 curl is automatically installed on any mac systems but might need manual installation on windows.
 
 
