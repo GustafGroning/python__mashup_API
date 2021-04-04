@@ -16,12 +16,11 @@ The system needs a current version of Python3 and the Flask module. Both json an
 
 (guide for installing python3 and flask)
 
-
-The API can be accessed through the command line or any browser that can handle JSON.
 1. open a terminal window in the project folder.
-2. type <python3 app.py>.
+2. type "python3 app.py"
 <br> the app is now running on your machine.
 
+The API can be accessed through the command line or any browser that can handle JSON.
 
 ## browser
 1. enter "localhost:5000/search/MBID" (5000 is the automatic port used by Flask, MBID is the identifier you want to search for) 
