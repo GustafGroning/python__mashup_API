@@ -34,8 +34,8 @@ The API can be accessed through the command line or any browser that can handle 
 
 # Testing
 The main issue that could occur is if a user inputs an invalid MBID. To avoid this, a case is included at Start up:
-```if response.status_code != 200:  ```
-```errorStatus = str(response.status_code) ```
+```if response.status_code != 200:  ``` <br>
+```errorStatus = str(response.status_code) ``` <br>
 ```return("invalid MBID, status code: " + errorStatus)```
 <br>
 Besides this, no other user error is possible since the rest of the information is gathered by the API itself.
