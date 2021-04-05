@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 
 
-mashUpDict = {"MBID": "", "description": "", "albums": ""} #dictionary där samtlig data sparas och till slut returneras.
+mashUpDict = {"MBID": "", "description": "", "albums": ""} #dictionary där samtlig data sparas och till slut omvandlas till JSON.
 
 def FindWikipediaURL(IDConvert, URLRework): #hittar via WikiData rätt ID för en sökning på Wikipedia.
 
@@ -29,7 +29,7 @@ def GetWikipediaText(wikipediaID, URLRework): #hämtar description text från Wi
     return(GetCoverArt(URLRework))
 
 def GetCoverArt(URLRework):
-    gatheredAlbums = {} #dictionary som sparar datan till slutreturningen (mashUpDict)
+    gatheredAlbums = {} #dictionary som sparar datan från albums till slutreturneringen (mashUpDict)
 
     response = requests.get(URLRework) 
     data = response.text
@@ -44,7 +44,7 @@ def GetCoverArt(URLRework):
         coverResponse = requests.get(coverUrl)
 
         if coverResponse.status_code == 200: #vissa albums fungerade inte, kanske felaktiga länkar från MusicBrainz. if-satsen fångar dessa 
-            #och hoppar över trasiga länkar.
+            # och hoppar över trasiga länkar.
             coverdata = coverResponse.text 
             coverParsed = json.loads(coverdata)
 
@@ -56,14 +56,13 @@ def GetCoverArt(URLRework):
 
             gatheredAlbums[coverTitle] = coverDictionary #skapar hela albumet.
       
-    
     mashUpDict['albums'] = gatheredAlbums
     finalOutput = json.loads(json.dumps(mashUpDict, indent = 4))
     return(finalOutput) #gör om slutlig output till JSON format.
     
 @app.route('/')
 def intro():
-    instructions = "to run the script, go too localhost/search/<>, with your requsted MBID inside < >"
+    instructions = "to run the API, go too localhost/search/<>, with your requsted MBID inside < >"
     return(instructions)
 
 @app.route('/search/<MBID>', methods=['GET'])
@@ -94,7 +93,6 @@ def StartUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas
         # baserat på musicBrainz format bör dock lösningen vara;
         # wikipediaID = entry['title] - som sedan skickas direkt till GetWikipediaText som wikipediaID, utan att gå igenom FindWikipediaURL.
             
-# MBID ATT TESTA MED (nirvana) - 5b11f4ce-a62d-471e-81fc-a69a8278c7da
 
 if __name__ == '__main__':
     app.run(debug=True)

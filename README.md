@@ -33,11 +33,13 @@ The API can be accessed through the command line or any browser that can handle 
 
 
 # Testing
-The main issue that could occur is if a user inputs an invalid MBID. To avoid this, a case is included at Start up:
+The main issue that could occur is if a user inputs an invalid MBID. To avoid this, a case is included at Start up: <br>
 ```if response.status_code != 200:  ``` <br>
 ```errorStatus = str(response.status_code) ``` <br>
-```return("invalid MBID, status code: " + errorStatus)```
-<br>
+```return("invalid MBID, status code: " + errorStatus)``` <br>
+
+A similair case exists for skipping broken links to albums from Cover Art Archive.
+
 Besides this, no other user error is possible since the rest of the information is gathered by the API itself.
 # Issues
-MusicBrainz can link directly from Wikipedia instead of going through WikiData, but I couldn’t find any ID’s linking directly, so I couldn’t test my implementation. Based on the format of MusicBrainz output a hypothetical solution is included in the source codes comments which should work for implementation, but hasn’t been tested properly.
+MusicBrainz can link directly from Wikipedia instead of going through WikiData, but I couldn’t find any ID’s linking directly, so I couldn’t test my implementation. Based on the format of MusicBrainz data a hypothetical solution is included in the source code comments which should work for implementation, but hasn’t been tested properly.
