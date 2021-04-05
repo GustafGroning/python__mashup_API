@@ -7,14 +7,14 @@ A RESTful API that gathers and formats data from 3 separate API’s (MusicBrainz
 Searches are based on a MBID (identifier from MusicBrainz API), which is used to gather and output:
 * ID (from MusicBrainz)
 * Description for the artist/band (from Wikipedia)
-* All releases from the artist/band with name and link to the front of the release (from Cover Art Archives).
+* All releases from the artist/band with name and link to the front image of the release (from Cover Art Archives).
 
 The output is in a JSON format.
 
 # Installation
-The system needs a current version of Python3 and the Flask module. Both json and requests (Python3 modules that are required for running the app) are included in any valid installation of Python3 and do not need to be installed independently.
+The system needs a version of Python3 and the Flask module. Both json and requests (Python3 modules that are required for running the app) are included in any valid installation of Python3 and do not need to be installed independently.
 
-(guide for installing python3 and flask)
+## Start the API
 
 1. open a terminal window in the project folder
 2. Enter ```python3 app.py ```
@@ -23,14 +23,13 @@ The system needs a current version of Python3 and the Flask module. Both json an
 The API can be accessed through the command line or any browser that can handle JSON
 
 ## browser
-1. Enter 
-``` localhost:5000/search/MBID ``` <br> 5000 is the automatic port used by Flask, MBID is the identifier you want to search for 
+1. Enter``` localhost:5000/search/MBID ``` <br> 5000 is the automatic port used by Flask, MBID is the identifier you want to search for 
 <br> %3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for the band Nirvana
 
 
 ## command line
-1. open a terminal window in the project folder
-2. ``` curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E ``` 
+1. Open a terminal window in the project folder
+2. Enter ``` curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E ``` 
 
 
 
