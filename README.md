@@ -17,14 +17,14 @@ The system needs a current version of Python3 and the Flask module. Both json an
 (guide for installing python3 and flask)
 
 1. open a terminal window in the project folder
-2. type "python3 app.py"
-<br> the app is now running on your machine
+2. Enter ```python3 app.py ```
+<br> the API is now running on your machine and can be accessed.
 
 The API can be accessed through the command line or any browser that can handle JSON
 
 ## browser
-1. enter <br>
-``` localhost:5000/search/MBID ``` <br> (5000 is the automatic port used by Flask, MBID is the identifier you want to search for) 
+1. Enter 
+``` localhost:5000/search/MBID ``` <br> 5000 is the automatic port used by Flask, MBID is the identifier you want to search for 
 <br> %3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for the band Nirvana
 
 
