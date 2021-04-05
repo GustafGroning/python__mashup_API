@@ -73,7 +73,7 @@ def StartUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas
     URLRework = ((musicBrainzURL.replace('<', '').replace('>', '')))
     response = requests.get(URLRework) 
 
-    if response.status_code != 200: #avslutar programmet ifall det inmatade MBID inte är korrekt.
+    if response.status_code != 200: #avslutar programmet ifall det inmatade MBID inte är korrekt eller URL på annat sätt inte går igenom.
         errorStatus = str(response.status_code)
         return("invalid MBID, status code: " + errorStatus)
 
@@ -86,14 +86,15 @@ def StartUp(MBID): #tar ett MBID från användaren och hittar ett ID som skickas
         if entry['type'] == 'wikidata':
             IDConvert = entry['url']['resource']
             return(FindWikipediaURL(IDConvert.split("/")[-1], URLRework)) #URLRework skickas med för att kunna hitta cover art senare, som behöver 
-            # komma åt samma URL. Sista splitten av IDConver (-1) innehåller information till Wikidatas API.
+            # komma åt samma URL. Sista splitten av IDConver (-1) innehåller ID till Wikidatas API.
             
         elif entry['type'] == 'wikipedia':
             pass
         # Hittade inget ID som länkade direkt till Wikipedia, kunde därför inte testa detta case. 
         # baserat på musicBrainz format bör dock lösningen vara;
-        # wikipediaID = entry['title] - som sedan skickas direkt till GetWikipediaText, utan att gå igenom FindWikipediaURL.
+        # wikipediaID = entry['title] - som sedan skickas direkt till GetWikipediaText som wikipediaID, utan att gå igenom FindWikipediaURL.
             
 # MBID ATT TESTA MED (nirvana) - 5b11f4ce-a62d-471e-81fc-a69a8278c7da
+
 if __name__ == '__main__':
     app.run(debug=True)
