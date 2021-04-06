@@ -12,7 +12,7 @@ Searches are based on a MBID (identifier from MusicBrainz API), which is used to
 The output is in a JSON format.
 
 # Installation
-The system needs a version of Python3 and the Flask module. Both json and requests (Python3 modules that are required for running the app) are included in any valid installation of Python3 and do not need to be installed independently.
+The system needs a version of Python3, requests and the Flask module. 
 
 ## Start the API
 1. open a terminal window in the project folder
@@ -33,10 +33,7 @@ The API can be accessed through the command line or any browser that can handle 
 
 
 # Testing
-The main issue that could occur is if a user inputs an invalid MBID. To avoid this, a case is included at Start up: <br>
-```if response.status_code != 200:  ``` <br>
-```errorStatus = str(response.status_code) ``` <br>
-```return("invalid MBID, status code: " + errorStatus)``` <br>
+
 
 A similair case exists for skipping broken links to albums from Cover Art Archive.
 
