@@ -22,12 +22,12 @@ The API can be accessed through the command line or any browser that can handle 
 
 ## browser
 1. Enter``` localhost:5000/search/MBID ``` <br> 5000 is the automatic port used by Flask, MBID is the identifier you want to search for 
-<br> %3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E is a valid MBID for the band Nirvana
+<br> 5b11f4ce-a62d-471e-81fc-a69a8278c7da is a valid MBID for the band Nirvana
 
 
 ## command line
 1. Open a terminal window in the project folder
-2. Enter ``` curl localhost:5000/search/%3C5b11f4ce-a62d-471e-81fc-a69a8278c7da%3E ``` 
+2. Enter ``` curl localhost:5000/search/5b11f4ce-a62d-471e-81fc-a69a8278c7da ``` 
 
 
 
@@ -35,8 +35,5 @@ The API can be accessed through the command line or any browser that can handle 
 A unittest is performed by checking if the first album title of the inputed MBID (Nirvana) is the correct name (should be Bleach). Since Nirvana doesn't publish anymore albums, the test should always succeed as long as a new commit hasn't broken the code base or one of the relevant APIs are down. <br>
 to test this, start the API as shown above, then open a terminal in your project folder and input ``` python3 app_test.py ```
 
-
-
-Besides this, no other user error is possible since the rest of the information is gathered by the API itself.
 # Issues
 MusicBrainz can link directly from Wikipedia instead of going through WikiData, but I couldn’t find any ID’s linking directly, so I couldn’t test my implementation. Based on the format of MusicBrainz data a hypothetical solution is included in the source code comments which should work for implementation, but hasn’t been tested properly.
