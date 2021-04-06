@@ -1,6 +1,5 @@
 ## python__mashup_API
 
-
 # Intro
 A RESTful API that gathers and formats data from 3 separate API’s (MusicBrainz, Wikidata/Wikipedia and Cover Art Archives) about an artist and their releases.
 
@@ -33,9 +32,10 @@ The API can be accessed through the command line or any browser that can handle 
 
 
 # Testing
+A unittest is performed by checking if the first album title of the inputed MBID (Nirvana) is the correct name (should be Bleach). Since Nirvana doesn't publish anymore albums, the test should always succeed as long as a new commit hasn't broken the code base or one of the relevant APIs are down. <br>
+to test this, start the API as shown above, then open a terminal in your project folder and input ``` python3 app_test.py ```
 
 
-A similair case exists for skipping broken links to albums from Cover Art Archive.
 
 Besides this, no other user error is possible since the rest of the information is gathered by the API itself.
 # Issues
